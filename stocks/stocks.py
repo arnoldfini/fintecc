@@ -35,7 +35,7 @@ df_min = pd.DataFrame(min_values)
 
 # from parabola equation (ax^2+bx+c)
 variation = min_values["Second"][0] - df_max["Second"][0]
-a = pow(math.e, variation)
+a = pow(math.e, 1/variation) - 1
 
 # minimum point of the parabola
 i, j = min_values['Second'][0], df_min["Price"][0]
@@ -46,8 +46,9 @@ values = np.array([[j - (a * pow(i, 2))], [-2 * a * i]])
 b, c = np.linalg.inv(matrix) @ values
 
 # plot parabola
-p = np.linspace(df_max["Second"][0], df_max["Second"][1], 1000)
-plt.plot(p, a*pow(p, 2) + b*p + c, label='function')
+points = np.linspace(3, 10, 1000)
+print(df_max["Second"][0], df_max["Second"][1])
+plt.plot(points, a*pow(points, 2) + b*points + c, label='function')
 
 # plot stock graph
 plt.plot(x, price, label='stock')
