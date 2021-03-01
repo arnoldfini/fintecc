@@ -33,22 +33,50 @@ for i in range(len(price)-1):
 df_max = pd.DataFrame(max_values)
 df_min = pd.DataFrame(min_values)
 
-for z in range(10):
+# plot parabola for max and min values
+for z in range(3):
+    # Arrays to store parabola's equations
+    equations_min = [[], [], []]
+    equations_max = [[], [], []]
+
     # from parabola equation (ax^2+bx+c)
     variation = min_values["Second"][z] - df_max["Second"][z]
-    a = pow(-1, z) * pow(math.e, 1/variation)
 
+    # MINIMUM VALUES
     # minimum point of the parabola
     i, j = min_values['Second'][z], df_min["Price"][z]
 
-    # find b,c from ax^2+bx+c
-    matrix = np.array([[i, 1], [1, 0]])
-    values = np.array([[j - (a * pow(i, 2))], [-2 * a * i]])
-    b, c = np.linalg.inv(matrix) @ values
+    # find a,b,c from ax^2+bx+c
+    a = pow(math.e, 1/variation)
+    b, c = -2 * a * i, j + a * pow(i, 2)
+
+    # append a, b, c from ax^2 + bx + c to an array
+    equations_min[0].append(a)
+    equations_min[1].append(b)
+    equations_min[2].append(c)
 
     # plot parabola
-    points = np.linspace(df_max["Second"][z]-10, df_max["Second"][z+1]+10, 1000)
+    points = np.linspace(df_min["Second"][z]-10, df_min["Second"][z+1]+10, 1000)
     plt.plot(points, a*pow(points, 2) + b*points + c, label='function')
+
+    # MAXIMUM VALUES
+    # max point of the parabola
+    i, j = max_values['Second'][z], df_max['Price'][z]
+
+    # find a,b,c from ax^2 + bx + c (system of equations)
+    a = - pow(math.e, 1 / variation)
+    b, c = -2 * a * i, j + a * pow(i, 2)
+
+    # append a, b, c from ax^2 + bx+ c to an array
+    equations_max[0].append(a)
+    equations_max[1].append(b)
+    equations_max[2].append(c)
+
+    print(a, b, c)
+
+    # plot parabola
+    points = np.linspace(df_max['Second'][z]-10, df_max['Second'][z+1]+10, 1000)
+    plt.plot(points, a * pow(points, 2) + b*points + c, label='function2')
 
 # plot stock graph
 plt.plot(x, price, label='stock')
