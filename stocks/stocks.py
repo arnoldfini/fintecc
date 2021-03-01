@@ -12,20 +12,20 @@ max_values = {"Second": [], "Price": []}
 min_values = {"Second": [], "Price": []}
 
 for i in range(len(price)-1):
-    # Locate first max or min
+    # Locate first max or min, also don't count noise maximums or minimums
     if i == 0:
-        if price[i] > price[i+1]:
+        if price[i] > price[i+1] and int(price[i] - price[i+1]) != 0:
             max_values["Second"].append(df['Second'][i])
             max_values["Price"].append(price[i])
-        elif price[i] < price[i+1]:
+        else:
             min_values["Second"].append(df["Second"][i])
             min_values["Price"].append(price[i])
     # See if its a relative max
-    elif price[i] > price[i-1] and price[i] > price[i+1]:
+    elif price[i] > price[i-1] and price[i] > price[i+1] and int(price[i] - price[i+1]) != 0 and int(price[i] - price[i-1]) != 0:
         max_values["Second"].append(df['Second'][i])
         max_values["Price"].append(price[i])
     # See if its a relative min
-    elif price[i] < price[i-1] and price[i] < price[i+1]:
+    elif price[i] < price[i-1] and price[i] < price[i+1] and int(price[i+1] - price[i]) != 0 and int(price[i-1] - price[i]) != 0:
         min_values["Second"].append(df["Second"][i])
         min_values["Price"].append(price[i])
 
@@ -33,22 +33,22 @@ for i in range(len(price)-1):
 df_max = pd.DataFrame(max_values)
 df_min = pd.DataFrame(min_values)
 
-# from parabola equation (ax^2+bx+c)
-variation = min_values["Second"][0] - df_max["Second"][0]
-a = pow(math.e, 1/variation) - 1
+for z in range(10):
+    # from parabola equation (ax^2+bx+c)
+    variation = min_values["Second"][z] - df_max["Second"][z]
+    a = pow(-1, z) * pow(math.e, 1/variation)
 
-# minimum point of the parabola
-i, j = min_values['Second'][0], df_min["Price"][0]
+    # minimum point of the parabola
+    i, j = min_values['Second'][z], df_min["Price"][z]
 
-# find b,c from ax^2+bx+c
-matrix = np.array([[i, 1], [1, 0]])
-values = np.array([[j - (a * pow(i, 2))], [-2 * a * i]])
-b, c = np.linalg.inv(matrix) @ values
+    # find b,c from ax^2+bx+c
+    matrix = np.array([[i, 1], [1, 0]])
+    values = np.array([[j - (a * pow(i, 2))], [-2 * a * i]])
+    b, c = np.linalg.inv(matrix) @ values
 
-# plot parabola
-points = np.linspace(3, 10, 1000)
-print(df_max["Second"][0], df_max["Second"][1])
-plt.plot(points, a*pow(points, 2) + b*points + c, label='function')
+    # plot parabola
+    points = np.linspace(df_max["Second"][z]-10, df_max["Second"][z+1]+10, 1000)
+    plt.plot(points, a*pow(points, 2) + b*points + c, label='function')
 
 # plot stock graph
 plt.plot(x, price, label='stock')
