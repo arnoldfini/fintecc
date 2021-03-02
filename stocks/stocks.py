@@ -33,7 +33,7 @@ for i in range(len(price)-1):
 df_max = pd.DataFrame(max_values)
 df_min = pd.DataFrame(min_values)
 
-for z in range(10):
+for z in range(5):
     # from parabola equation (ax^2+bx+c)
     variation = min_values["Second"][z] - df_max["Second"][z]
     a = pow(-1, z) * pow(math.e, 1/variation)
