@@ -33,16 +33,12 @@ for i in range(len(price)-1):
 df_max = pd.DataFrame(max_values)
 df_min = pd.DataFrame(min_values)
 
-<<<<<<< HEAD
-for z in range(5):
-=======
 # plot parabola for max and min values
 for z in range(3):
     # Arrays to store parabola's equations
     equations_min = [[], [], []]
     equations_max = [[], [], []]
 
->>>>>>> 202c3f05c2b8d600b615faa86f8cd7dbea786b37
     # from parabola equation (ax^2+bx+c)
     variation = min_values["Second"][z] - df_max["Second"][z]
 
