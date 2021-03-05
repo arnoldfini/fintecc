@@ -101,7 +101,6 @@ print(min_values)
 # point
 x, y = df["Second"][40], df["Price"][40]
 
-
 def scan_point(x, y):
     # for a point x,y find its correspondent parabola
     # this point is in the middle of one max and one min
@@ -147,8 +146,8 @@ def scan_point(x, y):
             pass
         elif a < 0:
             print(f"Buy: ({x}, {y})")
-            # buy()
-            pass
+        elif a < 0:
+            print(f"Buy: ({x}, {y})")
         return
 
     # ratio of point to the parabola which indicates the slope
@@ -174,6 +173,14 @@ def scan_point(x, y):
         # TODO: what happens when the graph doesn't really follow the parabola tendency
         pass
 
+    if derivative > 10:
+        print(f"Buy: ({x},{y})")
+        pass
+    elif derivative < -10:
+        print(f"Sell: ({x},{y})")
+        pass
+
+    # if in the same parabola the derivative is either very negative or positive, buy or sell
     return
 
 
@@ -181,3 +188,5 @@ for i in range(int(len(df)/2)):
     scan_point(df["Second"][i], df["Price"][i])
 
 plt.show()
+
+scan_point(x, y)
