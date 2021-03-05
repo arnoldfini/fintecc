@@ -83,10 +83,10 @@ def scan_point(x, y):
         i, j = parabola_stationary, max_values["Second"][max_values["Second"].index(parabola_stationary)]
 
     # equation of the type ax^2 + bx + c = 0
-    for i in range(len(equations_max["a"])):
-        a = equations_max["a"][i]
+    for z in range(len(equations_max["a"])):
+        a = equations_max["a"][z]
         b, c = -2 * a * i, j + a * pow(i, 2)
-        if equations_max["b"][i] == -2*a*i and equations_max["c"][i] == j + a * pow(i, 2):
+        if equations_max["b"][z] == -2*a*i and equations_max["c"][z] == j + a * pow(i, 2):
             break
             
     # point y that maps to the parabola: f(x)
@@ -96,7 +96,7 @@ def scan_point(x, y):
     try:
         # point x that maps to the parabola: ax^2 + bx + c = y -> ax^2 + bx + (c-y) = 0
         x_parabola = [(-b + math.sqrt(b ** 2 - 4 * a * (c - y))) / 2 * a,
-                  (-b - math.sqrt(b ** 2 - 4 * a * (c - y))) / 2 * a]
+                      (-b - math.sqrt(b ** 2 - 4 * a * (c - y))) / 2 * a]
     except ValueError:
         # for a point
         # if completely breaks parabola's path (there's no solution for y in that point), buy or sell depending on "a"
@@ -104,7 +104,7 @@ def scan_point(x, y):
             print(f"Sell: ({x}, {y})")
             return
         elif a < 0:
-            print(f"Buy: ({x}, {y})")
+            print(f"Buy: ({x}, {y}). {a}, {b}, {c}")
             return
 
     # ratio of point to the parabola which indicates the slope
