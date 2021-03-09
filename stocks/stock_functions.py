@@ -21,7 +21,7 @@ def relative_min(z, first, min_values, max_values):
     except IndexError:
         variation = (min_values["Second"][z] + min_values["Second"][z - 1])/2
 
-        # MINIMUM VALUES
+    # MINIMUM VALUES
     # minimum point of the parabola
     i, j = min_values['Second'][z], min_values["Price"][z]
 

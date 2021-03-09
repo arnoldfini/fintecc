@@ -44,6 +44,9 @@ def scan_point(x, y):
             print(f"Buy: ({x}, {y}). {a}, {b}, {c}")
             return
 
+    # FOR NOW REPAIR THE ABOVE
+    exit()
+
     # ratio of point to the parabola which indicates the slope
     dy = y - y_parabola
     dx = x - max(x_parabola)
