@@ -36,7 +36,7 @@ def relative_min(z, first, min_values, max_values):
 
     # plot parabola
     points = np.linspace(min_values["Second"][z] - 10, min_values["Second"][z] + 10, 1000)
-    plt.plot(points, a * pow(points, 2) + b * points + c, label='function')
+    plt.plot(points, a * points**2 + b * points + c, label='function')
 
 
 def relative_max(z, first, min_values, max_values):
@@ -66,6 +66,13 @@ def relative_max(z, first, min_values, max_values):
 
     # plot parabola
     points = np.linspace(max_values['Second'][z] - 10, max_values['Second'][z] + 10, 1000)
-    plt.plot(points, a * pow(points, 2) + b * points + c, label='function2')
+    plt.plot(points, a * points**2 + b * points + c, label='function2')
 
+
+def find_nearest(array, value):
+    idx = np.searchsorted(array, value, side="left")
+    if idx > 0 and (idx == len(array) or math.fabs(value - array[idx - 1]) < math.fabs(value - array[idx])):
+        return array[idx - 1]
+    else:
+        return array[idx]
 

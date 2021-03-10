@@ -1,5 +1,7 @@
 import numpy as np
 import pandas
+from stock_functions import *
+from data import *
 
 
 def scan_point(x, y):
@@ -7,22 +9,22 @@ def scan_point(x, y):
 
     # this point is in the middle of one max and one min
     # so finding one max and one min and look what point is nearer
-    closest_max_min = [max_values["Second"][(np.abs(max_values["Second"] - x)).argmin()],
-                       min_values["Second"][(np.abs(min_values["Second"] - x)).argmin()]]
+    closest_max_min = [find_nearest(max_values["Second"], x),
+                       find_nearest(min_values["Second"], x)]
 
     # stationary point of the parabola
     parabola_stationary = min(closest_max_min)
 
     # point i,j of the stationary point
     try:
-        i, j = parabola_stationary, min_values["Second"][min_values["Second"].index(parabola_stationary)]
+        i, j = parabola_stationary, min_values["Price"][min_values["Second"].index(parabola_stationary)]
     except ValueError:
-        i, j = parabola_stationary, max_values["Second"][max_values["Second"].index(parabola_stationary)]
+        i, j = parabola_stationary, max_values["Price"][max_values["Second"].index(parabola_stationary)]
 
     # equation of the type ax^2 + bx + c = 0
     for z in range(len(equations_max["a"])):
         a = equations_max["a"][z]
-        b, c = -2 * a * i, j + a * pow(i, 2)
+        b, c = -2 * a * i, j + a * i**2
         if equations_max["b"][z] == -2 * a * i and equations_max["c"][z] == j + a * pow(i, 2):
             break
 
@@ -34,6 +36,7 @@ def scan_point(x, y):
         # point x that maps to the parabola: ax^2 + bx + c = y -> ax^2 + bx + (c-y) = 0
         x_parabola = [(-b + math.sqrt(b ** 2 - 4 * a * (c - y))) / 2 * a,
                       (-b - math.sqrt(b ** 2 - 4 * a * (c - y))) / 2 * a]
+
     except ValueError:
         # for a point
         # if completely breaks parabola's path (there's no solution for y in that point), buy or sell depending on "a"
@@ -41,11 +44,8 @@ def scan_point(x, y):
             print(f"Sell: ({x}, {y})")
             return
         elif a < 0:
-            print(f"Buy: ({x}, {y}). {a}, {b}, {c}")
+            print(f"Buy: ({x}, {y}). {a}, {b}, {c}, {y}")
             return
-
-    # FOR NOW REPAIR THE ABOVE
-    exit()
 
     # ratio of point to the parabola which indicates the slope
     dy = y - y_parabola
@@ -69,3 +69,13 @@ def scan_point(x, y):
         pass
 
     return
+
+data = data()
+
+
+print(equations_max)
+
+for i in range(1, len(df)):
+    scan_point(df["Second"][i], df["Price"][i])
+
+plot_stock_graph(data[0], data[1])

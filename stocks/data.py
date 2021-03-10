@@ -2,15 +2,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from stock_functions import *
 
+df = pd.read_csv("bitcoin_price.csv", header=0)
+price = df['Price']
+
+# dict of relative max values and min values
+max_values = {"Second": [], "Price": []}
+min_values = {"Second": [], "Price": []}
+
 
 def data():
-    df = pd.read_csv("bitcoin_price.csv", header=0)
-    price = df['Price']
-
-    # dict of relative max values and min values
-    max_values = {"Second": [], "Price": []}
-    min_values = {"Second": [], "Price": []}
-
     for i in range(len(price)-1):
         # Locate first max or min, also don't count noise maximums or minimums
         if i == 0:
@@ -37,12 +37,10 @@ def data():
             min_values["Price"].append(price[i])
             relative_min(min_values["Second"].index(i), first, min_values, max_values)
 
-    return max_values, min_values
+    return [max_values, min_values]
 
 
 def plot_stock_graph(max_values, min_values):
-    df = pd.read_csv("bitcoin_price.csv", header=0)
-    price = df['Price']
     x = [i for i in range(len(df))]
 
     # plot stock graph
@@ -53,3 +51,4 @@ def plot_stock_graph(max_values, min_values):
     plt.xlabel('Time')
     plt.ylabel('Price')
     return plt.show()
+
