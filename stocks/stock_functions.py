@@ -4,9 +4,8 @@ import math
 import numpy as np
 
 # dict to store parabola's equations
-equations_min = {"a": [], "b": [], "c": []}
-equations_max = {"a": [], "b": [], "c": []}
-
+equations = {"max": {"a": [], "b": [], "c": []},
+             "min": {"a": [], "b": [], "c": []}}
 
 # FUNCTIONS
 def relative_min(z, first, min_values, max_values):
@@ -30,9 +29,9 @@ def relative_min(z, first, min_values, max_values):
     b, c = -2 * a * i, j + a * pow(i, 2)
 
     # append a, b, c from ax^2 + bx + c to an array
-    equations_min["a"].append(a)
-    equations_min["b"].append(b)
-    equations_min["c"].append(c)
+    equations["min"]["a"].append(a)
+    equations["min"]["b"].append(b)
+    equations["min"]["c"].append(c)
 
     # plot parabola
     points = np.linspace(min_values["Second"][z] - 10, min_values["Second"][z] + 10, 1000)
@@ -60,9 +59,9 @@ def relative_max(z, first, min_values, max_values):
     b, c = -2 * a * i, j + a * pow(i, 2)
 
     # append a, b, c from ax^2 + bx+ c to an array
-    equations_max["a"].append(a)
-    equations_max["b"].append(b)
-    equations_max["c"].append(c)
+    equations["max"]["a"].append(a)
+    equations["max"]["b"].append(b)
+    equations["max"]["c"].append(c)
 
     # plot parabola
     points = np.linspace(max_values['Second'][z] - 10, max_values['Second'][z] + 10, 1000)
