@@ -92,11 +92,11 @@ def scan_point(x, y):
             return
 
         else:
-            # TODO Repair
             # when the graph doesn't really follow the parabola tendency, create a slope with the last value
             # if slope is really big, buy. otherwise sell
-            dy, dx = y - df["Price"][x - 1], x - df["Second"][x - 1]
+            dy, dx = y - y_parabola, x - max(x_parabola)
             try:
+                # By weird mathematics this is the approximation of the slope (in mafs.png)
                 slope = math.tan(np.arcsin(math.sqrt(int(3 * (dy**2) - dx**2)) / 2 * dx))
 
             except ValueError:
