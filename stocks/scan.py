@@ -1,5 +1,6 @@
 import numpy as np
 import pandas
+import math
 from stock_functions import *
 from data import *
 
@@ -94,7 +95,14 @@ def scan_point(x, y):
             # TODO Repair
             # when the graph doesn't really follow the parabola tendency, create a slope with the last value
             # if slope is really big, buy. otherwise sell
-            slope = (y - df["Price"][x - 1]) / (x - df["Second"][x - 1])
+            dy, dx = y - df["Price"][x - 1], x - df["Second"][x - 1]
+            try:
+                slope = math.tan(np.arcsin(math.sqrt(int(3 * (dy**2) - dx**2)) / 2 * dx))
+
+            except ValueError:
+                # TODO What happens when this weird situation occur
+                return
+
             if slope > 8:
                 print(f"Buy: ({x}, {y}) by derivative {derivative}")
                 return
