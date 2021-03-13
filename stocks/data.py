@@ -54,3 +54,5 @@ def plot_stock_graph(max_values, min_values):
     plt.ylabel('Price')
     return plt.show()
 
+data = data()
+plot_stock_graph(data[0], data[1])
