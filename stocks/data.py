@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from stock_functions import *
 
-df = pd.read_csv("bitcoin_price.csv", header=0)
+df = pd.read_csv("bitcoin_price1.csv", header=0)
 price = df['Price']
 
 # dict of relative max values and min values
