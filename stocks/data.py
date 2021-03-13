@@ -2,6 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from stock_functions import *
 
+# TODO If there are two equal consecutive values what to do (Ex: bitcoin_price1.csv, Second = 82)
+
 df = pd.read_csv("bitcoin_price1.csv", header=0)
 price = df['Price']
 

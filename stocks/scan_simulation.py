@@ -1,10 +1,6 @@
-import numpy as np
-import pandas
 import math
 from stock_functions import *
-from data import *
-
-data = data()
+from data_simulation import *
 
 
 def scan_point(x, y):
@@ -37,7 +33,7 @@ def scan_point(x, y):
 
         if equations["min"]["b"][z] == b and equations["min"]["c"][z] == c:
             break
-
+    print(b, c)
     # point y that maps to the parabola: f(x)
     y_parabola = a * (x ** 2) + b * x + c
 
@@ -114,8 +110,3 @@ def scan_point(x, y):
                 return
 
     return
-
-for i in range(1, len(df),10):
-    scan_point(df["Second"][i], df["Price"][i])
-
-plot_stock_graph(data[0], data[1])
