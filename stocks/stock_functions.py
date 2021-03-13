@@ -7,6 +7,7 @@ import numpy as np
 equations = {"max": {"a": [], "b": [], "c": []},
              "min": {"a": [], "b": [], "c": []}}
 
+
 # FUNCTIONS
 def relative_min(z, first, min_values, max_values):
     try:

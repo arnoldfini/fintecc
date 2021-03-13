@@ -8,6 +8,7 @@ data()
 print(max_values)
 print(min_values)
 
+
 def scan_point(x, y):
     # for a point x,y find its correspondent parabola
 
@@ -94,15 +95,15 @@ def scan_point(x, y):
         else:
             # when the graph doesn't really follow the parabola tendency, create a slope with the last value
             # if slope is really big, buy. otherwise sell
-            dy, dx = y - y_parabola, x - max(x_parabola)
-            print(3 * (dy**2) - dx**2)
-            #try:
+            dy, dx = y - df["Price"][x-1], x - df["Second"][x-1]
+            try:
                 # By weird mathematics this is the approximation of the slope (in mafs.png)
-            slope = math.tan(np.arcsin(math.sqrt(int(3 * (dy**2) - dx**2)) / 2 * dx))
+                slope = math.tan(np.arcsin(math.sqrt(int(3 * (dy**2) - dx**2)) / 2 * dx))
 
-            #except ValueError:
-                # TODO What happens when this weird situation occur
-            #    return
+            except ValueError:
+                # This happens when last value is slightly bigger but not a maximum or minimum
+                # As it's *slightly* bigger just don't do nothing, it's fine because it's flat
+                return
 
             if slope > 8:
                 print(f"Buy: ({x}, {y}) by derivative {derivative}")
