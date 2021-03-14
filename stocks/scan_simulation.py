@@ -3,7 +3,8 @@ from stock_functions import *
 from data_simulation import *
 
 
-def scan_point(x, y):
+def scan_point(df, x, y):
+    global a, b, c
     # for a point x,y find its correspondent parabola
 
     # this point is in the middle of one max and one min
@@ -33,7 +34,7 @@ def scan_point(x, y):
 
         if equations["min"]["b"][z] == b and equations["min"]["c"][z] == c:
             break
-    print(b, c)
+
     # point y that maps to the parabola: f(x)
     y_parabola = a * (x ** 2) + b * x + c
 
@@ -106,7 +107,7 @@ def scan_point(x, y):
                 print(f"Sell: ({x}, {y}) by derivative {derivative}")
                 return
             else:
-                # Don't do nothing
+                # Do nothing
                 return
 
     return

@@ -1,39 +1,41 @@
-import requests
 from data_simulation import *
 from time import sleep
 from scan_simulation import *
+import os
+from binance.client import Client
 
-dicta = {"Second": [],
-         "Price": []}
+# init
+api_key = os.environ.get('binance_api')
+api_secret = os.environ.get('binance_secret')
+client = Client(api_key, api_secret)
 
-max = int(input("\nSeconds to record the fluctuation: "))
+# TODO Create balance in order to see the gains and losses of the algorithm in real time
+crypto = {"Second": [],
+          "Price": []}
+
+max = int(input("Seconds to record the fluctuation: "))
 i = 0
 # request the price
 while i < max:
-    print(i, end=", ")
-    url = requests.get(f'https://api.binance.com/api/v1/ticker/price?symbol=BTCUSDT')
-    data_btc = url.json()
-    actual_price = float(data_btc['price'])
-    dicta["Price"].append(actual_price)
-    dicta["Second"].append(i)
+    actual_price = float(client.get_symbol_ticker(symbol="BTCUSDT")["price"])
+    crypto["Price"].append(actual_price)
+    crypto["Second"].append(i)
 
     sleep(1)
     # find next value in order to determine if the last is a max or min
-    url = requests.get(f'https://api.binanc5e.com/api/v1/ticker/price?symbol=BTCUSDT')
-    data_btc = url.json()
-    next_value = float(data_btc['price'])
+    next_value = float(client.get_symbol_ticker(symbol="BTCUSDT")["price"])
 
-    data(dicta, i, next_value)
+    data(crypto, i, next_value)
 
     try:
-        scan_point(i, actual_price)
+        scan_point(crypto, i, actual_price)
     except IndexError:
         pass
     i += 1
 
 print()
-print(dicta)
+print(crypto)
 print(max_values)
 print(min_values)
 
-plot_stock_graph(dicta, max_values, min_values)
+plot_stock_graph(crypto, max_values, min_values)

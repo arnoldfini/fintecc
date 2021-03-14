@@ -71,7 +71,6 @@ def relative_max(z, first, min_values, max_values):
 
 def find_nearest(array, value):
     idx = np.searchsorted(array, value, side="left")
-    print(idx, len(array))
     if idx > 0 and (idx == len(array) or math.fabs(value - array[idx - 1]) < math.fabs(value - array[idx])):
         return array[idx - 1]
     else:
