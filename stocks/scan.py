@@ -4,9 +4,7 @@ import math
 from stock_functions import *
 from data import *
 
-data()
-print(max_values)
-print(min_values)
+data = data()
 
 
 def scan_point(x, y):
@@ -117,9 +115,7 @@ def scan_point(x, y):
 
     return
 
-data = data()
-
-for i in range(1, len(df)):
+for i in range(1, len(df),10):
     scan_point(df["Second"][i], df["Price"][i])
-#scan_point(5, 46875.18)
+
 plot_stock_graph(data[0], data[1])
