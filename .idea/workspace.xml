@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e402d3cf-8488-4c33-8962-10615ba6703c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/aws.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/fintecc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/fintecc.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stocks/data.py" beforeDir="false" afterPath="$PROJECT_DIR$/stocks/data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stocks/data_simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/stocks/simulation/data_simulation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stocks/scan.py" beforeDir="false" afterPath="$PROJECT_DIR$/stocks/scan.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stocks/scan_simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/stocks/simulation/scan_simulation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stocks/simulate.py" beforeDir="false" afterPath="$PROJECT_DIR$/stocks/simulation/simulate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stocks/stock_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/stocks/simulation/stock_functions.py" afterDir="false" />
-    </list>
+    <list default="true" id="e402d3cf-8488-4c33-8962-10615ba6703c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
