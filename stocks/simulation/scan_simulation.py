@@ -2,9 +2,10 @@ import math
 from stock_functions import *
 from data_simulation import *
 
+global a, b, c
+
 
 def scan_point(df, x, y):
-    global a, b, c
     # for a point x,y find its correspondent parabola
 
     # this point is in the middle of one max and one min
@@ -27,12 +28,14 @@ def scan_point(df, x, y):
         b, c = -2 * a * i, j + a * i**2
 
         if equations["max"]["b"][z] == b and equations["max"]["c"][z] == c:
+            a, b, c = equations["max"]["a"][z], -2 * a * i, j + a * i**2
             break
 
         a = equations["min"]["a"][z]
         b, c = -2 * a * i, j + a * i ** 2
 
         if equations["min"]["b"][z] == b and equations["min"]["c"][z] == c:
+            a, b, c = equations["min"]["a"][z], -2 * a * i, j + a * i ** 2
             break
 
     # point y that maps to the parabola: f(x)

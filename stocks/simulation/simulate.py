@@ -3,19 +3,18 @@ from time import sleep
 from scan_simulation import *
 import os
 from binance.client import Client
+from orders import *
+
 
 # init
-api_key = os.environ.get('binance_api')
-api_secret = os.environ.get('binance_secret')
-client = Client(api_key, api_secret)
-#demo_api_key = "zPXQy2mWVBBFcKAsbibqLKhGNR6adL41AeQDLf6Fzf9kyNIqbEPjhCNLhbKxw0Rz"
-#demo_api_secret = "H5SFI4ZQoQfPCsHaZIMSkdDL8KPnQFq3w072Fyx6Bc9L2XZFxakdSb6gXcI4DjpN"
-#client = Client(demo_api_key, demo_api_secret)
-#client.API_URL = 'https://testnet.binance.vision/api'
+#api_key = os.environ.get('binance_api')
+#api_secret = os.environ.get('binance_secret')
+#client = Client(api_key, api_secret)
+demo_api_key = "zPXQy2mWVBBFcKAsbibqLKhGNR6adL41AeQDLf6Fzf9kyNIqbEPjhCNLhbKxw0Rz"
+demo_api_secret = "H5SFI4ZQoQfPCsHaZIMSkdDL8KPnQFq3w072Fyx6Bc9L2XZFxakdSb6gXcI4DjpN"
+client = Client(demo_api_key, demo_api_secret)
+client.API_URL = 'https://testnet.binance.vision/api'
 
-# You ask for the balance
-balance = client.get_asset_balance(asset='USDT')
-usdt = balance['free']
 
 # TODO Create balance in order to see the gains and losses of the algorithm in real time
 crypto = {"Second": [],
@@ -23,9 +22,8 @@ crypto = {"Second": [],
 symbol = input("Symbol: ").upper() + "USDT"
 
 max = int(input("Seconds to record the fluctuation: "))
-init = client.get_asset_balance(asset='USDT')['free']
-init1 = client.get_asset_balance(asset='BTC')['free']
-print(init, init1)
+
+
 
 # If I have no usdt in my account sell other crypto
 if float(usdt) == 0.:
@@ -50,10 +48,13 @@ while i < max:
     next_value = float(client.get_symbol_ticker(symbol=symbol)["price"])
 
     data(crypto, i, next_value)
-
-
     try:
         order = scan_point(crypto, i, actual_price)
+
+    except IndexError:
+        pass
+
+    '''try:
         if order == 0:
             if usdt != 0:
                 client.create_test_order(
@@ -75,7 +76,7 @@ while i < max:
                 price=actual_price)
 
     except IndexError:
-        pass
+        pass'''
     i += 1
 
 
