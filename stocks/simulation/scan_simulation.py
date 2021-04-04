@@ -2,8 +2,6 @@ import math
 from stock_functions import *
 from data_simulation import *
 
-global a, b, c
-
 
 def scan_point(df, x, y):
     # for a point x,y find its correspondent parabola
@@ -49,11 +47,11 @@ def scan_point(df, x, y):
             if a > 0:
                 x_parabola = int(x)
                 print(f"Buy: ({x}, {y})")
-                return 0
+                return [0]
             elif a < 0:
                 x_parabola = int(x)
                 print(f"Sell: ({x}, {y})")
-                return 1
+                return [1]
         else:
             # point x that maps to the parabola: ax^2 + bx + c = y -> ax^2 + bx + (c-y) = 0
             x_parabola = [(-b + math.sqrt(b ** 2 - 4 * a * (c - y))) / 2 * a,
@@ -64,10 +62,10 @@ def scan_point(df, x, y):
         # if completely breaks parabola's path (there's no solution for y in that point), buy or sell depending on "a"
         if a > 0:
             print(f"Sell: ({x}, {y})")
-            return 1
+            return [1]
         elif a < 0:
             print(f"Buy: ({x}, {y})")
-            return 0
+            return [0]
 
     # ratio of point to the parabola which indicates the slope
     try:
@@ -85,10 +83,10 @@ def scan_point(df, x, y):
         # if in the same parabola the derivative is either very negative or positive, buy or sell
         if derivative > 8:
             print(f"Buy: ({x}, {y}) by derivative {derivative}")
-            return 0
+            return [0, derivative]
         elif derivative < -8:
             print(f"Sell: ({x}, {y}) by derivative {derivative}")
-            return 1
+            return [1, derivative]
 
         else:
             # when the graph doesn't really follow the parabola tendency, create a slope with the last value
@@ -105,12 +103,11 @@ def scan_point(df, x, y):
 
             if slope > 8:
                 print(f"Buy: ({x}, {y}) by derivative {derivative}")
-                return 0
+                return [0, derivative]
             elif slope < -8:
                 print(f"Sell: ({x}, {y}) by derivative {derivative}")
-                return 1
+                return [1, derivative]
             else:
                 # Do nothing
                 return
 
-    return

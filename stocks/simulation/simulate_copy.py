@@ -29,11 +29,13 @@ while i < seconds:
     data(info, i, next_value)
     try:
         order = scan_point(info, i, actual_price)
-
-        if order == 0:
-            crypto.buy()
-
-        elif order == 1:
+        # TODO buy/sell deppending on DERIVATIVE
+        if order[0] == 0:
+            if len(order) == 2:
+                crypto.buy(order[1])
+            else:
+                crypto.buy(1)
+        elif order[0] == 1:
             crypto.sell()
 
     except IndexError:
@@ -41,10 +43,13 @@ while i < seconds:
 
     i += 1
 
-# TODO
-benefit = crypto.balance - 1000
-print(f"Benefit: {benefit}")
-print(f"Money: {crypto.balance}")
+# If last instance was buying, sell
+if crypto.bought:
+    crypto.sell()
+
+benefit = crypto.benefit
+print(f"Benefit in {crypto_id.upper()}: {benefit / crypto.price()}, Benefit in USDT: {benefit}")
+print(f"Money: {crypto.balance / crypto.price()} {crypto_id.upper()}, {crypto.balance} USDT")
 
 print()
 print(info)
