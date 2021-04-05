@@ -16,7 +16,7 @@ def scan_point(df, x, y):
     # stationary point of the parabola
     parabola_stationary = min(closest_max_min)
 
-    # point i,j of the stationary point
+    # point i,j of the stationary pointa
     try:
         i, j = parabola_stationary, min_values["Price"][min_values["Second"].index(parabola_stationary)]
     except ValueError:
