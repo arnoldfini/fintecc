@@ -2,9 +2,10 @@ import math
 from stock_functions import *
 from data_simulation import *
 
+global a, b, c
+
 
 def scan_point(df, x, y):
-    global a, b, c
     # for a point x,y find its correspondent parabola
 
     # this point is in the middle of one max and one min
@@ -21,7 +22,7 @@ def scan_point(df, x, y):
     except ValueError:
         i, j = parabola_stationary, max_values["Price"][max_values["Second"].index(parabola_stationary)]
 
-    # equation of the type ax^2 + bx + c = 0
+    # equation of the type ax^2 + bx + c = 0 -> search for the one that fits this parabola
     for z in range(len(equations["max"]["a"])):
         a = equations["max"]["a"][z]
         b, c = -2 * a * i, j + a * i**2
@@ -36,7 +37,7 @@ def scan_point(df, x, y):
             break
 
     # point y that maps to the parabola: f(x)
-    y_parabola = a * (x ** 2) + b * x + c
+    y_parabola = a * (x ** 2) + b * x +c
 
     # try to find a solution, if not the parabola is not following the tendency so it's time to sell/buy
     try:
