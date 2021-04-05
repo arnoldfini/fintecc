@@ -1,7 +1,3 @@
-import numpy as np
-import pandas
-import math
-from stock_functions import *
 from data import *
 
 data = data()
