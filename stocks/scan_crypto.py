@@ -1,9 +1,11 @@
+import math
+from stock_functions import *
 from data import *
 
-data = data()
+data()
 
 
-def scan_point(x, y):
+def scan_point(df, x, y):
     # for a point x,y find its correspondent parabola
 
     # this point is in the middle of one max and one min
@@ -26,12 +28,14 @@ def scan_point(x, y):
         b, c = -2 * a * i, j + a * i**2
 
         if equations["max"]["b"][z] == b and equations["max"]["c"][z] == c:
+            a, b, c = equations["max"]["a"][z], -2 * a * i, j + a * i**2
             break
 
         a = equations["min"]["a"][z]
         b, c = -2 * a * i, j + a * i ** 2
 
         if equations["min"]["b"][z] == b and equations["min"]["c"][z] == c:
+            a, b, c = equations["min"]["a"][z], -2 * a * i, j + a * i ** 2
             break
 
     # point y that maps to the parabola: f(x)
@@ -45,11 +49,11 @@ def scan_point(x, y):
             if a > 0:
                 x_parabola = int(x)
                 print(f"Buy: ({x}, {y})")
-                return
+                return [0]
             elif a < 0:
                 x_parabola = int(x)
                 print(f"Sell: ({x}, {y})")
-                return
+                return [1]
         else:
             # point x that maps to the parabola: ax^2 + bx + c = y -> ax^2 + bx + (c-y) = 0
             x_parabola = [(-b + math.sqrt(b ** 2 - 4 * a * (c - y))) / 2 * a,
@@ -60,10 +64,10 @@ def scan_point(x, y):
         # if completely breaks parabola's path (there's no solution for y in that point), buy or sell depending on "a"
         if a > 0:
             print(f"Sell: ({x}, {y})")
-            return
+            return [1]
         elif a < 0:
             print(f"Buy: ({x}, {y})")
-            return
+            return [0]
 
     # ratio of point to the parabola which indicates the slope
     try:
@@ -81,10 +85,10 @@ def scan_point(x, y):
         # if in the same parabola the derivative is either very negative or positive, buy or sell
         if derivative > 8:
             print(f"Buy: ({x}, {y}) by derivative {derivative}")
-            return
+            return [0, derivative]
         elif derivative < -8:
             print(f"Sell: ({x}, {y}) by derivative {derivative}")
-            return
+            return [1, derivative]
 
         else:
             # when the graph doesn't really follow the parabola tendency, create a slope with the last value
@@ -101,17 +105,11 @@ def scan_point(x, y):
 
             if slope > 8:
                 print(f"Buy: ({x}, {y}) by derivative {derivative}")
-                return
+                return [0, derivative]
             elif slope < -8:
                 print(f"Sell: ({x}, {y}) by derivative {derivative}")
-                return
+                return [1, derivative]
             else:
-                # Don't do nothing
+                # Do nothing
                 return
 
-    return
-
-for i in range(1, len(df),10):
-    scan_point(df["Second"][i], df["Price"][i])
-
-plot_stock_graph(data[0], data[1])

@@ -47,8 +47,8 @@ while i < seconds:
 if crypto.bought:
     crypto.sell()
 
-benefit = crypto.benefit
-print(f"Benefit in {crypto_id.upper()}: {benefit / crypto.price()}, Benefit in USDT: {benefit}")
+
+print(f"Benefit in {crypto_id.upper()}: {benefit / crypto.price()}, Benefit in USDT: {crypto.benefit}")
 print(f"Money: {crypto.balance / crypto.price()} {crypto_id.upper()}, {crypto.balance} USDT")
 
 print()

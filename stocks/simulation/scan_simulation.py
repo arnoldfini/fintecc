@@ -1,5 +1,3 @@
-import math
-from stock_functions import *
 from data_simulation import *
 
 global a, b, c

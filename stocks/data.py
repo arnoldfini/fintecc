@@ -1,4 +1,5 @@
-from stocks.simulation.stock_functions import *
+from orders import *
+from scan_crypto import scan_point
 
 # TODO If there are two equal consecutive values what to do (Ex: bitcoin_price1.csv, Second = 82)
 
@@ -11,7 +12,7 @@ min_values = {"Second": [], "Price": []}
 
 
 def data():
-    for i in range(len(price)-1):
+    for i in range(len(price) - 1):
         # Locate first max or min, also don't count noise maximums or minimums
         if i == 0:
             if price[i] > price[i + 1] and int(price[i] - price[i + 1]) != 0:
@@ -51,6 +52,23 @@ def plot_stock_graph(max_values, min_values):
     plt.xlabel('Time')
     plt.ylabel('Price')
     return plt.show()
+
+
+crypto = Crypto("BTC")
+for i in range(len(df)):
+    try:
+        order = scan_point(df, df["Second"][i], df["Price"][i])
+        # TODO buy/sell depending on DERIVATIVE
+        if order[0] == 0:
+            if len(order) == 2:
+                crypto.buy(order[1])
+            else:
+                crypto.buy(1)
+        elif order[0] == 1:
+            crypto.sell()
+
+    except IndexError:
+        continue
 
 data = data()
 plot_stock_graph(data[0], data[1])
