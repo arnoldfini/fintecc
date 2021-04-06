@@ -1,5 +1,8 @@
 from orders import *
-from scan_crypto import scan_point
+from scan import *
+import pandas as pd
+from stock_functions import *
+from scan import *
 
 # TODO If there are two equal consecutive values what to do (Ex: bitcoin_price1.csv, Second = 82)
 
@@ -38,7 +41,7 @@ def data():
             min_values["Price"].append(price[i])
             relative_min(min_values["Second"].index(i), first, min_values, max_values)
 
-    return [max_values, min_values]
+    return max_values, min_values
 
 
 def plot_stock_graph(max_values, min_values):
@@ -54,21 +57,28 @@ def plot_stock_graph(max_values, min_values):
     return plt.show()
 
 
+maxim, minim = data()
+
 crypto = Crypto("BTC")
 for i in range(len(df)):
-    try:
-        order = scan_point(df, df["Second"][i], df["Price"][i])
-        # TODO buy/sell depending on DERIVATIVE
-        if order[0] == 0:
-            if len(order) == 2:
-                crypto.buy(order[1])
-            else:
-                crypto.buy(1)
-        elif order[0] == 1:
-            crypto.sell()
+    order = scan_point(df, df["Second"][i], df["Price"][i])
+    # TODO buy/sell depending on DERIVATIVE
+    if order[0] == 0:
+        if len(order) == 2:
+            crypto.buy(order[1])
+        else:
+            crypto.buy(1)
+    elif order[0] == 1:
+        crypto.sell()
 
-    except IndexError:
-        continue
 
-data = data()
+
+print(f"Benefit in BTC: {crypto.benefit / crypto.price()}, Benefit in USDT: {crypto.benefit}")
+print(f"Money: {crypto.balance / crypto.price()} BTC, {crypto.balance} USDT")
+
+print()
+print(df)
+print(max_values)
+print(min_values)
+
 plot_stock_graph(data[0], data[1])

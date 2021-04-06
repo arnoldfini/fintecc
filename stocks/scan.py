@@ -1,10 +1,7 @@
 from simulation.data_simulation import *
 from stock_functions import find_nearest
 
-global a, b, c
-
-
-def scan_point_realtime(df, x, y):
+def scan_point(df, x, y):
     # for a point x,y find its correspondent parabola
 
     # this point is in the middle of one max and one min

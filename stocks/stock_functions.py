@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import math
 import numpy as np
+from data import *
 
 # dict to store parabola's equations
 equations = {"max": {"a": [], "b": [], "c": []},
@@ -74,5 +75,7 @@ def find_nearest(array, value):
     if idx > 0 and (idx == len(array) or math.fabs(value - array[idx - 1]) < math.fabs(value - array[idx])):
         return array[idx - 1]
     else:
+        # TODO erase
+        print(idx, len(array))
         return array[idx]
 

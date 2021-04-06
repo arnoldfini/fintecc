@@ -113,3 +113,4 @@ def scan_point(df, x, y):
                 # Do nothing
                 return
 
+    return
