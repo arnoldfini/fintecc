@@ -27,7 +27,8 @@ def relative_min(z, first, min_values, max_values):
     i, j = min_values['Second'][z], min_values["Price"][z]
 
     # find a,b,c from ax^2+bx+c
-    a = pow(math.e, 1 / variation)
+    # TODO
+    a = pow(variation**2)
     b, c = -2 * a * i, j + a * pow(i, 2)
 
     # append a, b, c from ax^2 + bx + c to an array
