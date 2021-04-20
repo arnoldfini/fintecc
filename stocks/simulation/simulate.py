@@ -7,13 +7,11 @@ from orders import *
 
 
 # init
-#api_key = os.environ.get('binance_api')
-#api_secret = os.environ.get('binance_secret')
-#client = Client(api_key, api_secret)
-demo_api_key = "zPXQy2mWVBBFcKAsbibqLKhGNR6adL41AeQDLf6Fzf9kyNIqbEPjhCNLhbKxw0Rz"
-demo_api_secret = "H5SFI4ZQoQfPCsHaZIMSkdDL8KPnQFq3w072Fyx6Bc9L2XZFxakdSb6gXcI4DjpN"
-client = Client(demo_api_key, demo_api_secret)
-client.API_URL = 'https://testnet.binance.vision/api'
+api_key = os.environ.get('binance_api')
+api_secret = os.environ.get('binance_secret')
+client = Client(api_key, api_secret)
+#client = Client(demo_api_key, demo_api_secret)
+#client.API_URL = 'https://testnet.binance.vision/api'
 
 
 # TODO Create balance in order to see the gains and losses of the algorithm in real time
