@@ -1,4 +1,4 @@
-# fintecc
+# fintecc (IN PROGRESS)
 Your finance gestor of trust. 
 With Deep Learning technology.
 
